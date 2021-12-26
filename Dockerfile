@@ -12,4 +12,6 @@ RUN mvn -f /usr/app/pom.xml clean install
 FROM tomcat
 RUN cp -r webapps.dist/* webapps/
 COPY --from=maven /usr/app/target/*.war /usr/local/tomcat/webapps/
-COPY --from=git /usr/java
+COPY --from=git /usr/java/tomcat-config/context.xml /usr/local/tomcat/webapps/host-manager/META-INF/context.xml
+COPY --from=git /usr/java/tomcat-config/context.xml /usr/local/tomcat/webapps/manager/META-INF/context.xml
+COPY --from=git /usr/java/tomcat-config/tomcat-users.xml /usr/local/tomcat/conf
